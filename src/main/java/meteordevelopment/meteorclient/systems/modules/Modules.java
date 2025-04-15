@@ -546,6 +546,7 @@ public class Modules extends System<Modules> {
         add(new AutoNametag());
         add(new AutoShearer());
         add(new AutoSign());
+        add(new Projects_Ace());
         add(new AutoSmelter());
         add(new BuildHeight());
         add(new EChestFarmer());
