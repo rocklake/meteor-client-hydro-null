@@ -15,6 +15,10 @@ import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
 import net.minecraft.network.packet.c2s.play.UpdateSignC2SPacket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import net.minecraft.util.math.BlockPos;
 
 public class Projects_Ace extends Module {
     private String[] text;
@@ -44,6 +48,12 @@ public class Projects_Ace extends Module {
         mc.player.networkHandler.sendPacket(
             new UpdateSignC2SPacket(sign.getPos(), true, text[0], text[1], text[2], text[3])
         );
+        String logEntry = String.format(sign.getPos().toShortString() + "\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sign-log.txt", true))) {
+            writer.write(logEntry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         event.cancel();
     }
 }
