@@ -567,7 +567,6 @@ public class Modules extends System<Modules> {
             add(new InfinityMiner());
         }
     }
-
     private void initMisc() {
         add(new Swarm());
         add(new AntiPacketKick());
@@ -575,6 +574,7 @@ public class Modules extends System<Modules> {
         add(new AutoLog());
         add(new AutoReconnect());
         add(new AutoRespawn());
+        add(new api_python());
         add(new BetterBeacons());
         add(new BetterChat());
         add(new BookBot());
