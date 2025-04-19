@@ -37,10 +37,33 @@ public class api_python extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Pre event) {
+             /*
+                 to      chat
+                      |
+                      V
+            */
+            if (mc.player == null || mc.world == null) return;
+            try {
+                File file = new File("tochat.txt");
+                if (file.exists()) {
+                    String message = new String(java.nio.file.Files.readAllBytes(file.toPath())).trim();
+                    if (!message.isEmpty()) {
+                        mc.player.networkHandler.sendChatMessage(message);
+                        java.nio.file.Files.write(file.toPath(), new byte[0]);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
     }
+}
 
     @EventHandler
     private void onChatPacket(PacketEvent.Receive event) {
+         /*
+              last  chat
+                   |
+                   V
+         */
         if (event.packet instanceof GameMessageS2CPacket packet) {
             String message = packet.content().getString();
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("lastchat.txt", false))) {
